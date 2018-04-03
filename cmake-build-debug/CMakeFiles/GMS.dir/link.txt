@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/GMS.dir/main.cpp.o CMakeFiles/GMS.dir/init.cpp.o CMakeFiles/GMS.dir/user.cpp.o CMakeFiles/GMS.dir/utility.cpp.o CMakeFiles/GMS.dir/Statistics.cpp.o CMakeFiles/GMS.dir/Courses.cpp.o  -o GMS 
