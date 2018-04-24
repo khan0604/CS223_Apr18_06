@@ -39,9 +39,6 @@ public:
     static map<string, User>& all();
     //Returns the userlist
 
-    void set_user_name(const string&);
-    //Returns username
-
     string get_user_name() const;
     //Returns username
 

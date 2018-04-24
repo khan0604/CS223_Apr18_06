@@ -219,6 +219,6 @@ void Init:: init()
     }
     catch (string)
     {
-        cout<<"user not saved";
+        cout<<"saved failed";
     }
 }

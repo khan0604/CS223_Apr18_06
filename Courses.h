@@ -51,9 +51,9 @@ public:
     string get_course_name();
     //Returns name of Course
 
-   Course& save_courses();
+    string get_user();
 
-   void show_course_grade(const string& );
+   Course& save_courses();
 
    void get_course_grade(const string& );
 
@@ -67,7 +67,6 @@ public:
 
     void show_courses();
 
-    void select_courses();
 
 };
 

@@ -48,8 +48,7 @@ void Utility::user_register() {
     cin >> username;
     cout << "Enter Userid\n";
     cin >> userid;
-    cout << "Enter email\n";
-    cin >> mail;
+    cin_email(mail);
     char ch;
     cout << "Define your user type\n1. student\n2. faculty\n";
     cin >> ch;

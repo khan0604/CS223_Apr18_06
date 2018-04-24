@@ -42,7 +42,13 @@ void Course::show_user_courses() {
 
 
 Course &Course::save_courses() {
-    course_list.insert(pair<string, Course>(this->get_course_name(), *this));
+    if ((Course::all().find(this->get_course_name())!=Course::all().end()) &&  (this->get_user() == current_user->get_user_name()))
+    {
+        cout<<"Course already added"<<endl;
+    }
+    else {
+        course_list.insert(pair<string, Course>(this->get_course_name(), *this));
+    }
     return *this;
 }
 
@@ -54,13 +60,6 @@ int Course::get_course_marks() {
     return course_mark;
 }
 
-/*void Course::show_course_grade(const string &cname) {
-    string u_name = current_user->get_user_name();
-    for (auto &i : course_list) {
-        if ((i.second.student_name == u_name || i.second.faculty_name == u_name) && i.second.get_course_name() == cname)
-            i.second.get_course_grade(cname);
-    }
-}*/
 
 void Course::update_marks(int marks) {
     course_mark = marks;
@@ -91,6 +90,18 @@ void Course::show_courses() {
     {
         cout<<i<<". "<<courses[i]<<endl;
     }
+}
+
+string Course::get_user() {
+
+    if(current_user->user_type == "Student")
+    {
+    return student_name;
+    }
+
+    if (current_user->user_type == "Faculty") {
+            return faculty_name;
+        }
 }
 
 

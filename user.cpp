@@ -35,10 +35,6 @@ map<string, User> &User::all() {
     return object_list;
 }
 
-void User::set_user_name(const string &username) {
-    user_name = username;
-}
-
 string User::get_user_name() const {
     return user_name;
 }
@@ -87,8 +83,7 @@ void User::modify_profile() {
     string userid, mail;
     cout << "Enter Userid\n";
     cin >> userid;
-    cout << "Enter email\n";
-    cin >> mail;
+    cin_email(mail);
     User::set_user_id(userid);
     User::set_email(mail);
     cout<<"Profile Updated Successfully !"<<endl;
@@ -124,19 +119,33 @@ void User::view_courses() {
 
 void User::select_courses() {
 
+    start:
+    cin.ignore(1000000000, '\n');
     course.show_courses();
     int c;
     cout<<"Select any course from the list "<<endl;
     cin>>c;
-    if(current_user->user_type == "Student")
+    if(cin.fail())
     {
-        Course s(Course::courses[c],current_user->get_user_name(),0,'E');
-        s.save_courses();
+        cin.clear();
+        goto start;
     }
-    if(current_user->user_type == "Faculty")
-    {
-        Course f(Course::courses[c],current_user->get_user_name());
-        f.save_courses();
+    if( c==1 || c==2 || c==3 || c==4 || c==5 || c==6) {
+
+        if(current_user->user_type == "Student")
+        {
+            Course s(Course::courses[c],current_user->get_user_name(),0,'E');
+            s.save_courses();
+        }
+        if(current_user->user_type == "Faculty")
+        {
+            Course f(Course::courses[c],current_user->get_user_name());
+            f.save_courses();
+        }
+
+    } else{
+        cout<<"enter a valid input"<<endl;
+        goto start;
     }
     cout<<endl;
     cout<<"Course added successfully !"<<endl;
@@ -179,20 +188,47 @@ void Faculty::update_marks() {
 
     string username, cname;
     int marks,c;
-    course.show_user_courses();
+    start:
+    cin.ignore(1000000000, '\n');
+    course.show_courses();
     cout << "Please enter any Course name from the above list" << endl;
     cin >> c;
-    cname = Course::courses[c];
-    cout << "Enter student name\n";
-    cin >> username;
-    cout << "Enter student marks\n";
-    cin >> marks;
-
-    for (auto &i : Course::all()) {
-        if (i.second.get_course_name() == cname && i.second.student_name == username) {
-            i.second.update_marks(marks);
-        }
+    if(cin.fail())
+    {
+        cin.clear();
+        goto start;
     }
+    if( c==1 || c==2 || c==3 || c==4 || c==5 || c==6) {
+        cname = Course::courses[c];
+        cout << "Enter student name\n";
+        cin >> username;
+        next:
+        cin.ignore(1000000000, '\n');
+        cout << "Enter student marks\n";
+        cin >> marks;
+        if(cin.fail())
+        {
+            cin.clear();
+            goto next;
+        }
+
+        if ((marks >= 0) && (marks <= 100)){
+            for (auto &i : Course::all()) {
+                if (i.second.get_course_name() == cname && i.second.student_name == username) {
+                    i.second.update_marks(marks);
+                }
+            }
+    }
+        else{
+            cout<<"enter a valid input"<<endl;
+            goto next;
+        }
+
+    } else{
+        cout<<"enter a valid input"<<endl;
+        goto start;
+    }
+
     User::view_stats();
 }
 
@@ -201,19 +237,45 @@ void Faculty::modify_grades() {
     int c;
     string username, cname;
     char grades;
-    course.show_user_courses();
+    start:
+    cin.ignore(1000000000, '\n');
+    course.show_courses();
     cout << "Please enter any Course name from the above list" << endl;
     cin >> c;
-    cname = Course::courses[c];
-    cout << "Enter student name\n";
-    cin >> username;
-    cout << "Enter student grades\n";
-    cin >> grades;
-    for (auto &i : Course::all()) {
-        if (i.second.get_course_name() == cname && i.second.student_name == username) {
-            i.second.update_grades(grades);
-           i.second.check = true;
+    if(cin.fail())
+    {
+        cin.clear();
+        goto start;
+    }
+    if( c==1 || c==2 || c==3 || c==4 || c==5 || c==6) {
+        cname = Course::courses[c];
+        cout << "Enter student name\n";
+        cin >> username;
+        next:
+        cin.ignore(1000000000, '\n');
+        cout << "Enter student grades\n";
+        cin >> grades;
+        if(cin.fail())
+        {
+            cin.clear();
+            goto next;
         }
+        if ((grades == 'A') || (grades == 'B') || (grades == 'C') || (grades == 'D') || (grades == 'F')){
+            for (auto &i : Course::all()) {
+                if (i.second.get_course_name() == cname && i.second.student_name == username) {
+                    i.second.update_grades(grades);
+                    i.second.check = true;
+                }
+            }
+        }
+        else{
+            cout<<"enter a valid input"<<endl;
+            goto next;
+        }
+
+    } else{
+        cout<<"enter a valid input"<<endl;
+        goto start;
     }
     User::view_stats();
 }
