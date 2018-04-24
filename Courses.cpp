@@ -37,6 +37,7 @@ void Course::show_user_courses() {
             count++;
         }
     }
+    if(count == 1) cout<< "No course Registered" <<endl;
 }
 
 
@@ -53,13 +54,13 @@ int Course::get_course_marks() {
     return course_mark;
 }
 
-void Course::show_course_grade(const string &cname) {
+/*void Course::show_course_grade(const string &cname) {
     string u_name = current_user->get_user_name();
     for (auto &i : course_list) {
         if ((i.second.student_name == u_name || i.second.faculty_name == u_name) && i.second.get_course_name() == cname)
             i.second.get_course_grade(cname);
     }
-}
+}*/
 
 void Course::update_marks(int marks) {
     course_mark = marks;

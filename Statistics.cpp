@@ -19,7 +19,7 @@ void Grades::grades_criteria(const string& coursename ) {
     meandeviation = get_mean_deviation(coursename);
 
 
-    int totalmarks = 0;
+    int totalmarks = 0, count=0;
     multimap<string, Course> course_list;
     course_list = Course::all();
     multimap<string, Course>::iterator it;
@@ -28,10 +28,12 @@ void Grades::grades_criteria(const string& coursename ) {
     for (it = course_list.begin(); it != course_list.end(); it++) {
 
         if (current_user->user_type == "Student") {
+
             string studentname = current_user->get_user_name();
 
             if (it->second.get_course_name() == coursename && it->second.student_name == studentname) {
                 totalmarks = it->second.course_mark;
+                count++;
 
                 if (!it->second.check) {
 
@@ -74,6 +76,7 @@ void Grades::grades_criteria(const string& coursename ) {
 
             if (it->second.get_course_name() == coursename && !it->second.student_name.empty()) {
                 totalmarks = it->second.course_mark;
+                count++;
 
                 if (!it->second.check) {
 
@@ -118,6 +121,10 @@ void Grades::grades_criteria(const string& coursename ) {
         }
 
 
+    }
+    if(count == 0)
+    {
+        cout<<"Course is not registered yet"<<endl;
     }
 }
 

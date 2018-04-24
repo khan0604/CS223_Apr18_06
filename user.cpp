@@ -1,4 +1,4 @@
-//
+ //
 // Created by sohail on 30/3/18.
 //
 
@@ -96,12 +96,24 @@ void User::modify_profile() {
 }
 
 void User::view_stats() {
-    course.show_user_courses();
+    start:
+    cin.ignore(1000000000, '\n');
+    course.show_courses();
     int c;
     cout << "Please Select any Course from the above list" << endl;
     cin >> c;
-    string cname= Course::courses[c];
-    course.get_course_grade(cname);
+    if(cin.fail())
+    {
+        cin.clear();
+        goto start;
+    }
+    if( c==1 || c==2 || c==3 || c==4 || c==5 || c==6) {
+        string cname = Course::courses[c];
+        course.get_course_grade(cname);
+    } else{
+        cout<<"enter a valid input";
+        goto start;
+    }
 }
 
 void User::view_courses() {

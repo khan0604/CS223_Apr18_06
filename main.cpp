@@ -11,7 +11,9 @@ int main()
 {
     Init::init();
     Utility utility;
-    utility.start();
-
+    do {
+        utility.start();
+    }
+    while (!EXIT_CODE);
     return 0;
 }

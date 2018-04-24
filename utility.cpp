@@ -110,6 +110,7 @@ void Utility::start() {
     switch (c) {
         case '1': {
             Utility::user_register();
+            Utility::user_login();
             break;
         }
         case '2': {
