@@ -42,13 +42,14 @@ void Course::show_user_courses() {
 
 
 Course &Course::save_courses() {
-    if ((Course::all().find(this->get_course_name())!=Course::all().end()) &&  (this->get_user() == current_user->get_user_name()))
+   /* if ((Course::all().find(this->get_course_name())!=Course::all().end()) &&  (this->get_user() == current_user->get_user_name()))
     {
         cout<<"Course already added"<<endl;
     }
     else {
         course_list.insert(pair<string, Course>(this->get_course_name(), *this));
-    }
+    }*/
+    course_list.insert(pair<string, Course>(this->get_course_name(), *this));
     return *this;
 }
 
